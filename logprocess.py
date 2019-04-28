@@ -5,8 +5,8 @@ def remove_chars(line_array):
     new_words = []
     for word in line_array:
         word = word.strip()
-        word = re.sub(r'[^a-zA-ZäöÄÖ ]+', '', word)
-        if word != '':
+        word = re.sub(r'[^a-zA-ZäöÄÖ: ]+', '', word)
+        if word != '' and not word.startswith('http'):
             new_words.append(word)
     return new_words
 
@@ -22,6 +22,33 @@ def get_lines(filepath):
             line = clean_line(line)
             lines.append(line)
     return lines
+
+print('reading')
+#%%
+testlines = get_lines('./cnblokit2016-08_2019-04')
+testlines2 = get_lines('simo-training-logs-2014-4_2016-6.log')
+print(testlines2[0])
+#%%
+#testlines = get_lines('./cnblokit2016-08_2019-04')
+#testlines = get_lines('testlogkkouu.txt')
+#with open('2016-2019.log', 'w', encoding="utf8") as fp:
+#with open('2016-2019.log', 'w', encoding="utf8") as fp:
+with open('2014-2019.log', 'w', encoding="utf8") as fp:
+    print('writing 1')
+    for line in testlines:
+        strip_line = ' '.join(line).strip()
+        if strip_line != '':
+            fp.write(strip_line + '\n')
+
+with open('2014-2019.log', 'a', encoding="utf8") as fp:
+    print('writing 2')
+    for line in testlines:
+        strip_line = ' '.join(line).strip()
+        if strip_line != '':
+            fp.write(strip_line + '\n')
+    #for line in testlines:
+    #for line in testlines:
+
 
 #%%
 def build_vocab(tokenized_corpus):
